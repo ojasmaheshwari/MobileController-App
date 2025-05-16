@@ -1,75 +1,46 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet, TouchableOpacity } from "react-native";
+import "../../global.css";
+import GamePresetsList from "@/components/GamePresetsList";
+import Instructions from "@/components/instructions";
+import ConnectionOptionsList from "@/components/ConnectionOptionsList";
+import { useState } from "react";
+import { ScrollView } from "react-native";
+import { View } from "react-native";
+import { Text } from "react-native";
+import { Button } from "react-native";
+import { useSelectedMethod } from "@/contexts/selectedMethodContext";
+import ScanButton from "@/components/ScanButton";
+import LaunchGamePadButton from "@/components/LaunchGamePadButton";
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-
-export default function HomeScreen() {
+export function ButtonMorePreset() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <TouchableOpacity className="p-2 bg-slate-600 mx-2 rounded-md w-48 text-white">
+      <Text className="text-white">See More Presets</Text>
+    </TouchableOpacity>
   );
 }
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
+export default function HomeScreen() {
+  return (
+    <ScrollView className="mx-2">
+      <View>
+        <Text className="text-slate-700 dark:text-white text-3xl text-center font-semibold p-4 mt-8">
+          GameSpace
+        </Text>
+      </View>
+
+      <View className="flex flex-col gap-1">
+        <GamePresetsList />
+        <ButtonMorePreset />
+      </View>
+
+      <ConnectionOptionsList />
+      <Instructions />
+
+      <View className="flex flex-row gap-4 w-full justify-center my-4">
+        <ScanButton />
+        <LaunchGamePadButton />
+      </View>
+    </ScrollView>
+  );
+}
